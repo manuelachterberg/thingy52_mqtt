@@ -158,14 +158,17 @@ def mqttSend(key, value, unit):
         try:
             topic = args.topicprefix + key
             payload = value
-            authstring = '{\'username\':"' + args.user + '",\'password\':"' + args.passwd + '"}'
-            logging.debug('MQTT authstring %s' % (authstring))
+            authdict = {
+                'username': args.user,
+                'password': args.passwd
+            }
+            logging.debug('MQTT authstring %s' % (authdict))
             logging.debug('MQTT message topic %s, payload %s' % (topic, str(payload)))
             publish.single(topic, 
                         payload = payload,
                         hostname = args.hostname, 
                         port = args.port, 
-                        auth = authstring,
+                        auth = authdict,
                         retain = True)
         except:
             logging.error("Failed to publish message, details follow")
