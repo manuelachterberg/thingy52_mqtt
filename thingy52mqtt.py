@@ -158,14 +158,13 @@ def mqttSend(key, value, unit):
         try:
             topic = args.topicprefix + key
             payload = value
-            authstring = '{\'username\':"' + args.user + '", \'password\':"' + args.passwd + '"}'
+            authstring = '{\'username\':"' + args.user + '",\'password\':"' + args.passwd + '"}'
             logging.debug('MQTT authstring %s' % (authstring))
             logging.debug('MQTT message topic %s, payload %s' % (topic, str(payload)))
             publish.single(topic, 
                         payload = payload,
                         hostname = args.hostname, 
                         port = args.port, 
-                        #auth = {'username':"manu", 'password':"sJtoRYGuUhqZ6J8NZyKD"}
                         auth = authstring,
                         retain = True)
         except:
