@@ -158,13 +158,14 @@ def mqttSend(key, value, unit):
         try:
             topic = args.topicprefix + key
             payload = value
+            authstring = '{\'username\':"' + args.user + '", \'password\':"' + args.passwd + '"}'
             logging.debug('MQTT message topic %s, payload %s' % (topic, str(payload)))
             publish.single(topic, 
                         payload = payload,
                         hostname = args.hostname, 
                         port = args.port, 
                         #auth = {'username':"manu", 'password':"sJtoRYGuUhqZ6J8NZyKD"}
-                        auth = '{\'username\':"' + args.user + '", \'password\':"' + args.pass + '"}',
+                        auth = authstring,
                         retain = True)
         except:
             logging.error("Failed to publish message, details follow")
@@ -316,7 +317,7 @@ def parseArgs():
     parser.add_argument('--host', dest='hostname', default='localhost', help='MQTT hostname')
     #parser.add_argument('--auth', dest='auth', default='pi', help='MQTT authentication')
     parser.add_argument('--user', dest='user', default='pi', help='MQTT auth username')
-    parser.add_argument('--pass', dest='pass', default='raspberry', help='MQTT auth password')
+    parser.add_argument('--passwd', dest='passwd', default='raspberry', help='MQTT auth password')
     parser.add_argument('--port', dest='port', default=1883, type=int, help='MQTT port')
     parser.add_argument('--topic-prefix', dest='topicprefix', default="/home/thingy/", help='MQTT topic prefix to post the values, prefix + key is used as topic')
 
