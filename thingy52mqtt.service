@@ -6,11 +6,13 @@
 [Unit]
 Description=Thingy52 MQTT Publisher
 After=multi-user.target
- 
+
 [Service]
+WrorkingDirectory=/home/pi/
+User=pi
 Type=simple
-ExecStart=/home/pi/scripts/thingy52mqtt.py C2:9E:52:63:18:8A  --temperature --pressure --humidity --keypress --battery --gas -v -v -v -v -v
+ExecStart=/usr/bin/python3 /home/pi/thingy52_mqtt/thingy52mqtt.py EA:B1:F4:E0:5C:B4 --gas --temp>
 Restart=on-abort
- 
+
 [Install]
 WantedBy=multi-user.target
